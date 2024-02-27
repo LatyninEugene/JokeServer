@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo
+    container_name: ${PROJECT_ID}-mongo-1
+    ports:
+      - ${MONGO_PORT}:27017
+    volumes:
+      - ./data/mongo-init:/docker-entrypoint-initdb.d
+      - ./data/mongo:/data/db
