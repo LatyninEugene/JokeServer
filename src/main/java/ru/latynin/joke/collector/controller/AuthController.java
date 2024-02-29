@@ -13,10 +13,14 @@ import ru.latynin.joke.collector.domain.dto.auth.RefreshTokenRequestDto;
 import ru.latynin.joke.collector.domain.dto.auth.RegisterRequestDto;
 import ru.latynin.joke.collector.service.security.AuthenticationService;
 
+import static ru.latynin.joke.collector.controller.AuthController.API_ENDPOINT;
+
 @RestController
-@RequestMapping(value = "/api/v1/auth", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = API_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class AuthController {
+
+    public static final String API_ENDPOINT = "/api/v1/auth";
 
     private final AuthenticationService service;
 
@@ -24,7 +28,8 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponseDto> register(@RequestBody RegisterRequestDto request) {
         return ResponseEntity.ok(service.register(request));
     }
-    @PostMapping("/authenticate")
+
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponseDto> authenticate(@RequestBody AuthenticationRequestDto request) {
         return ResponseEntity.ok(service.authenticate(request));
     }

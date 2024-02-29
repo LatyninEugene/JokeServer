@@ -21,7 +21,7 @@ public class JokeController {
     private final JokeService jokeService;
 
     @GetMapping("/random")
-    public ResponseEntity<?> getRandom(JokeRequestDto requestDto, @Nullable Principal user) {
+    public ResponseEntity<?> getRandom(JokeRequestDto requestDto, Principal user) {
         return ResponseEntity.ok(jokeService.random(requestDto));
     }
 

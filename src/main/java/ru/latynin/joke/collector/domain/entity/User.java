@@ -29,9 +29,10 @@ public class User implements UserDetails {
     String email;
     String password;
     Role role;
-    Token token;
+    Token lastToken;
     Instant createdDate;
-    boolean enabled;
+    @Builder.Default
+    boolean enabled = true;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -55,7 +56,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return !lastToken.isRevoked();
     }
 
     @Override
@@ -64,7 +65,7 @@ public class User implements UserDetails {
     }
 
     public void updateToken(String accessToken) {
-        setToken(Token.builder()
+        setLastToken(Token.builder()
                 .token(accessToken)
                 .createdDate(Instant.now())
                 .build());

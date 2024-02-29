@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import ru.latynin.joke.collector.common.DateTimeProvider;
 import ru.latynin.joke.collector.config.properties.JwtProperties;
 
 import java.util.Date;
@@ -18,6 +19,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private final JwtProperties properties;
+    private final DateTimeProvider dateTimeProvider;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -63,7 +65,7 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        return extractExpiration(token).toInstant().isBefore(dateTimeProvider.getCurrentTime());
     }
 
     private Date extractExpiration(String token) {
