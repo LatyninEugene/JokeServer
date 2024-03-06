@@ -13,8 +13,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ExternalJoker implements Joker<JokeWithId> {
 
+    public static final String PROVIDER_ID = "external_joker";
+
     private final ExternalJokeApiClient client;
     private final JokeMapper jokeMapper;
+
+    @Override
+    public String getProviderId() {
+        return PROVIDER_ID;
+    }
 
     @Override
     public JokeWithId getJoke() {

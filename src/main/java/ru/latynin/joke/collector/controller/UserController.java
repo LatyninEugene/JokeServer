@@ -3,16 +3,11 @@ package ru.latynin.joke.collector.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.latynin.joke.collector.common.mapper.UserMapper;
 import ru.latynin.joke.collector.domain.dto.UserDto;
-import ru.latynin.joke.collector.domain.entity.User;
 
-import java.security.Principal;
-
+import static ru.latynin.joke.collector.common.SecurityUtils.requireCurrentUser;
 import static ru.latynin.joke.collector.controller.UserController.API_ENDPOINT;
 
 @RestController
@@ -24,9 +19,9 @@ public class UserController {
 
     private final UserMapper userMapper;
 
-    @PostMapping("/self")
-    public ResponseEntity<UserDto> self(Principal user) {
-        return ResponseEntity.ok(userMapper.toDto((User) user));
+    @GetMapping("/self")
+    public ResponseEntity<UserDto> self() {
+        return ResponseEntity.ok(userMapper.toDto((requireCurrentUser())));
     }
 
 }

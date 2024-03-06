@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,11 +14,13 @@ import ru.latynin.joke.collector.domain.common.Token;
 
 import java.time.Instant;
 import java.util.Collection;
+import java.util.UUID;
 
 import static ru.latynin.joke.collector.domain.entity.User.COLLECTION_NAME;
 
 @Data
 @Builder
+@FieldNameConstants
 @Document(value = COLLECTION_NAME)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements UserDetails {
@@ -25,7 +28,8 @@ public class User implements UserDetails {
     public static final String COLLECTION_NAME = "users";
 
     @Id
-    String id;
+    @Builder.Default
+    String id = UUID.randomUUID().toString();
     String email;
     String password;
     Role role;
