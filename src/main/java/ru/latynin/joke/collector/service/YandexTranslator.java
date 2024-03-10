@@ -9,7 +9,6 @@ import ru.latynin.joke.collector.domain.common.Language;
 import ru.latynin.joke.collector.domain.dto.yandex.TranslateRequestDto;
 import ru.latynin.joke.collector.domain.dto.yandex.TranslateResponseDto;
 
-import static ru.latynin.joke.collector.common.FeatureFlag.DEEPL_ENABLED;
 import static ru.latynin.joke.collector.common.FeatureFlag.YANDEX_ENABLED;
 
 @Service("yandexTranslator")

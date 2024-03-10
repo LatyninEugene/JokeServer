@@ -3,6 +3,10 @@ spring:
     mongodb:
       uri: mongodb://localhost:27077/local
 
+springdoc:
+  api-docs:
+    path: "/api-docs"
+
 application:
   security:
     jwt:

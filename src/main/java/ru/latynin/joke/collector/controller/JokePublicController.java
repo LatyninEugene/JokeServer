@@ -1,5 +1,6 @@
 package ru.latynin.joke.collector.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ public class JokePublicController {
 
     private final JokeService jokeService;
 
+    @Operation(summary = "Возвращает случайную шутку (Публичное API)")
     @GetMapping("/random")
     public ResponseEntity<?> getRandom(JokeRequestDto requestDto) {
         return ResponseEntity.ok(jokeService.random(requestDto));
