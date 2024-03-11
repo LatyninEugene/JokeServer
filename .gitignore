@@ -39,3 +39,4 @@ out/
 
 /src/main/resources/application-local.yml
 /docker/dev-env/data/mongo/**
+/docker/run/data/mongo/**

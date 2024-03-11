@@ -12,8 +12,10 @@ services:
   server:
     build: ../../
     container_name: ${PROJECT_ID}-server
+    depends_on:
+      - mongo
     environment:
-      spring.data.mongodb.uri: mongodb://mongo:27077/local
+      spring.data.mongodb.uri: mongodb://mongo:27017/local
       application.external.yandex.enabled: ${YANDEX_ENABLED}
       application.external.yandex.oAuthToken: ${YANDEX_OAUTH_TOKEN}
       application.external.yandex.folderId: ${YANDEX_FOLDER_ID}
