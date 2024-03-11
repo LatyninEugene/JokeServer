@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo
+    container_name: ${PROJECT_ID}-mongo
+    ports:
+      - ${MONGO_PORT}:27017
+    volumes:
+      - ./data/mongo-init:/docker-entrypoint-initdb.d
+      - ./data/mongo:/data/db
+
+  server:
+    build: ../../
+    container_name: ${PROJECT_ID}-server
+    environment:
+      spring.data.mongodb.uri: mongodb://mongo:27077/local
+      application.external.yandex.enabled: ${YANDEX_ENABLED}
+      application.external.yandex.oAuthToken: ${YANDEX_OAUTH_TOKEN}
+      application.external.yandex.folderId: ${YANDEX_FOLDER_ID}
+    ports:
+      - "9090:8080"
+
